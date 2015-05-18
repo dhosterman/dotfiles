@@ -55,6 +55,8 @@ Bundle 'othree/xml.vim'
 
 Bundle 'elixir-lang/vim-elixir'
 
+Bundle 'MarcWeber/vim-addon-local-vimrc'
+
 " Reactivate now that Vundle has run
 filetype plugin indent on " Filetype auto-detection
 syntax on " Syntax highlighting
