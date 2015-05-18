@@ -100,3 +100,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 # Color coded cat
 alias ccat="pygmentize -g"
+
+# Alias for determining public IP.
+alias whatismyip="curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'"
