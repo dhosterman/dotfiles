@@ -53,6 +53,8 @@ Bundle 'tpope/vim-rails'
 
 Bundle 'othree/xml.vim'
 
+Bundle 'elixir-lang/vim-elixir'
+
 " Reactivate now that Vundle has run
 filetype plugin indent on " Filetype auto-detection
 syntax on " Syntax highlighting
