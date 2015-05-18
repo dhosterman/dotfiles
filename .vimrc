@@ -15,7 +15,7 @@ Bundle 'gmarik/vundle'
 
 Bundle 'flazz/vim-colorschemes'
 
-Bundle 'kien/ctrlp.vim'
+Bundle 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_clear_cache_on_exit=0
 
