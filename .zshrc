@@ -89,7 +89,7 @@ source $ZSH/oh-my-zsh.sh
 #
 # open automatically with tmux
 if [[ ! $TERM =~ screen ]]; then
-  exec tmux
+  exec tmux new-session -A -s main
 fi
 
 # added by travis gem
