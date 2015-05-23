@@ -146,7 +146,7 @@ set mouse=a
 
 " CtrlP Configuration.
 let g:ctrlp_custom_ignore = {
-  \ 'dir': '\.git$\|\.svn$\|\htmlcov$\|\node_modules$\',
+  \ 'dir': '\.git$\|\.svn$\|\htmlcov$\|\node_modules$\|deps\|_build',
   \ 'file': '\.exe$\|\.pyc$',
   \ }
 set wildignore+=*/node_modules/*
