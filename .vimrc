@@ -18,6 +18,7 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_open_new_file = 'r'
 
 Bundle 'tpope/vim-commentary'
 
@@ -58,6 +59,17 @@ Bundle 'elixir-lang/vim-elixir'
 Bundle 'mattreduce/vim-mix'
 
 Bundle 'MarcWeber/vim-addon-local-vimrc'
+
+Bundle 'guns/vim-sexp'
+
+Bundle 'tpope/vim-fireplace'
+
+Bundle 'tpope/vim-salve'
+
+Bundle 'luochen1990/rainbow'
+let g:rainbow_active = 1
+
+Bundle 'tpope/vim-sexp-mappings-for-regular-people'
 
 " Reactivate now that Vundle has run
 filetype plugin indent on " Filetype auto-detection
@@ -187,7 +199,7 @@ augroup END
 " vim emmet configuration
 map <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+autocmd FileType html,css,eex,erb EmmetInstall
 let g:user_emmet_expandabbr_key = '<Tab>'
 
 " required to show colors properly in tmux
@@ -219,3 +231,13 @@ function! XTermPasteBegin()
 endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+function RunWith (command)
+  execute "w"
+  execute "!clear;time " . a:command . " " . expand("%")
+endfunction
+
+autocmd FileType ruby imap <buffer><F5> <Esc>:call RunWith("ruby")<CR>
+autocmd FileType ruby nmap <buffer><F5> :call RunWith("ruby")<CR>
+autocmd FileType elixir imap <buffer><F5> <Esc>:call RunWith("elixir")<CR>
+autocmd FileType elixir nmap <buffer><F5> :call RunWith("elixir")<CR>
