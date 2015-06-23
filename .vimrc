@@ -11,7 +11,7 @@ call vundle#rc()
 " Vundle Packages
 
 " Let vundle manage itself:
-Bundle 'gmarik/vundle'
+Bundle 'gmarik/Vundle.vim'
 
 Bundle 'flazz/vim-colorschemes'
 
@@ -33,6 +33,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'airblade/vim-gitgutter'
 
 Bundle 'Raimondi/delimitMate'
+au! FileType clojure let b:loaded_delimitMate=1
 
 Bundle 'sheerun/vim-polyglot'
 
@@ -66,10 +67,14 @@ Bundle 'tpope/vim-fireplace'
 
 Bundle 'tpope/vim-salve'
 
+Bundle 'tpope/vim-sexp-mappings-for-regular-people'
+
+Bundle 'tpope/vim-surround'
+
+Bundle 'tpope/vim-dispatch'
+
 Bundle 'luochen1990/rainbow'
 let g:rainbow_active = 1
-
-Bundle 'tpope/vim-sexp-mappings-for-regular-people'
 
 " Reactivate now that Vundle has run
 filetype plugin indent on " Filetype auto-detection
@@ -87,7 +92,6 @@ set smartindent " Intellegently dedent / indent new lines based on rules.
 set backspace=2 " Make backspace work like most other apps.
 set number " Turn on line numbers
 set clipboard=unnamed " Make clipboard work with Vim
-" set shell=$SHELL\ -l
 
 " We have VCS -- we don't need this stuff.
 set nobackup " We have vcs, we don't need backups.
@@ -152,6 +156,7 @@ noremap <leader>b :CtrlPBuffer<CR>
 " Finally the color scheme. Choose whichever you want from the list in the
 " link above (back up where we included the bundle of a ton of themes.)
 colorscheme jellyx
+" colorscheme vividchalk
 " colorscheme flatland
 " colorscheme distinguished
 
