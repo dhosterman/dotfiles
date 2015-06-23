@@ -53,7 +53,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(mix git z pip vagrant virtualenvwrapper bower chruby taskwarrior rails)
+plugins=(mix git z pip vagrant virtualenvwrapper bower chruby taskwarrior rails lein)
 
 # User configuration
 
@@ -103,3 +103,6 @@ alias ccat="pygmentize -g"
 
 # Alias for determining public IP.
 alias whatismyip="curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'"
+
+# For thefuck
+alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
