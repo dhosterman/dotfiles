@@ -5,5 +5,5 @@
                   [lein-try "0.4.3"]
                   [lein-cljfmt "0.1.10"]
                   [lein-midje "3.1.3"]]
-        :dependencies [[spyscope "0.1.3"]]
-        :injections   [(require 'spyscope.core)]}}
+        :dependencies []
+        :injections   []}}
