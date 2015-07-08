@@ -22,8 +22,6 @@ let g:ctrlp_open_new_file = 'r'
 
 Bundle 'tpope/vim-commentary'
 
-Bundle 'kchmck/vim-coffee-script'
-
 Bundle 'bling/vim-airline'
 
 Bundle 'tpope/vim-fugitive'
@@ -53,8 +51,6 @@ Bundle 'mattn/emmet-vim'
 
 Bundle 'tpope/vim-rails'
 
-Bundle 'othree/xml.vim'
-
 Bundle 'elixir-lang/vim-elixir'
 
 Bundle 'mattreduce/vim-mix'
@@ -75,6 +71,8 @@ Bundle 'tpope/vim-dispatch'
 
 Bundle 'luochen1990/rainbow'
 let g:rainbow_active = 1
+
+Bundle 'godlygeek/tabular'
 
 " Reactivate now that Vundle has run
 filetype plugin indent on " Filetype auto-detection
@@ -165,7 +163,7 @@ set mouse=a
 
 " CtrlP Configuration.
 let g:ctrlp_custom_ignore = {
-  \ 'dir': '\.git$\|\.svn$\|\htmlcov$\|\node_modules$\|deps\|_build',
+  \ 'dir': '\.git$\|\.svn$\|\htmlcov$\|\node_modules$\|deps\|_build\|target\|tmp',
   \ 'file': '\.exe$\|\.pyc$',
   \ }
 set wildignore+=*/node_modules/*
@@ -202,7 +200,7 @@ augroup mydelimitMate
 augroup END
 
 " vim emmet configuration
-map <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+inoremap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,eex,erb EmmetInstall
 let g:user_emmet_expandabbr_key = '<Tab>'
@@ -242,7 +240,27 @@ function RunWith (command)
   execute "!clear;time " . a:command . " " . expand("%")
 endfunction
 
-autocmd FileType ruby imap <buffer><F5> <Esc>:call RunWith("ruby")<CR>
-autocmd FileType ruby nmap <buffer><F5> :call RunWith("ruby")<CR>
-autocmd FileType elixir imap <buffer><F5> <Esc>:call RunWith("elixir")<CR>
-autocmd FileType elixir nmap <buffer><F5> :call RunWith("elixir")<CR>
+autocmd FileType ruby inoremap <buffer><F5> <Esc>:call RunWith("ruby")<CR>
+autocmd FileType ruby nnoremap <buffer><F5> :call RunWith("ruby")<CR>
+autocmd FileType elixir inoremap <buffer><F5> <Esc>:call RunWith("elixir")<CR>
+autocmd FileType elixir nnoremap <buffer><F5> :call RunWith("elixir")<CR>
+
+" format JSON files using python.tools
+:command FormatJson %!python -m json.tool
+
+" format XML files using tidy
+:command FormatXml %!tidy -xml -q -i
+
+" experimenting with sending vimux commands
+function! VimuxSlime()
+  call VimuxSendText(@v)
+  call VimuxSendKeys("Enter")
+endfunction
+vnoremap <leader>vs "vy :call VimuxSlime()<CR>
+
+cabbrev !! VimuxRunCommand
+
+" code folding
+set foldmethod=indent
+set foldignore=
+set foldlevelstart=99
