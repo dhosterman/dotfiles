@@ -1,4 +1,5 @@
 # My Stuff
+PROMPT='λ %~/ $(git_prompt_info)%{$reset_color%}'
 
 # Chruby
 source '/usr/local/share/chruby/chruby.sh'
