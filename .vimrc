@@ -1,3 +1,4 @@
+"
 " Use Vim settings rather than Vi settings
 set nocompatible
 
