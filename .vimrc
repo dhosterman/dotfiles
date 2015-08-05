@@ -1,4 +1,3 @@
-"
 " Use Vim settings rather than Vi settings
 set nocompatible
 
@@ -185,6 +184,7 @@ let g:airline_section_y = airline#section#create('venv: %{virtualenv#statusline(
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_warning_symbol = "▲"
 let g:syntastic_python_pyflakes_args = '--load-plugins pylint_django'
+let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 augroup mySyntastic
   au!
   au FileType tex let b:syntastic_mode = "passive"
@@ -236,7 +236,7 @@ endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
-function RunWith (command)
+function! RunWith (command)
   execute "w"
   execute "!clear;time " . a:command . " " . expand("%")
 endfunction
@@ -245,6 +245,8 @@ autocmd FileType ruby inoremap <buffer><F5> <Esc>:call RunWith("ruby")<CR>
 autocmd FileType ruby nnoremap <buffer><F5> :call RunWith("ruby")<CR>
 autocmd FileType elixir inoremap <buffer><F5> <Esc>:call RunWith("elixir")<CR>
 autocmd FileType elixir nnoremap <buffer><F5> :call RunWith("elixir")<CR>
+autocmd FileType javascript inoremap <buffer><F5> <Esc>:call RunWith("node")<CR>
+autocmd FileType javascript nnoremap <buffer><F5> :call RunWith("node")<CR>
 
 " format JSON files using python.tools
 :command FormatJson %!python -m json.tool
@@ -265,3 +267,44 @@ cabbrev !! VimuxRunCommand
 set foldmethod=indent
 set foldignore=
 set foldlevelstart=99
+
+" start a lein repl using vimux and fireplace
+cabbrev lrepl :call ClojureRepl()
+
+function! ClojureRepl()
+  if filereadable('.nrepl-port') == 0
+    call VimuxRunCommand("lein repl")
+    echo "Starting repl, please wait."
+  elseif filereadable('.nrepl-port') == 1
+    call VimuxRunCommand("exit")
+    call VimuxRunCommand("lein repl")
+    echo "Restarting repl, please wait."
+  endif
+  while filereadable('.nrepl-port') == 0
+  endwhile
+  let port = matchstr(readfile('.nrepl-port', 'b', 1)[0], '\d\+')
+  execute "FireplaceConnect nrepl://localhost:" + port
+  echo "Connected to repl!"
+endfunction
+
+" automatically format the current clojure file
+cabbrev lformat :call Lformat()
+
+function! Lformat()
+  Start! lein cljfmt check %
+  echo "Applying formatting, please wait."
+  call system("lein cljfmt fix " . bufname("%"))
+  e!
+  echo "Formatting applied."
+  Copen
+endfunction
+
+" automatically generate ctags on save
+function! GenerateCtags()
+  if &filetype == "ruby"
+    Start! ctags --tag-relative -R -f .git/tags --exclude=.git --exclude=log . $(bundle list --paths)
+  else
+    Start! ctags --tag-relative -R -f .git/tags --exclude=.git .
+  endif
+endfunction
+nnoremap <F6> :call GenerateCtags()<CR>
